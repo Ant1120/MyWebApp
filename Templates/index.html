@@ -1,0 +1,22 @@
+$def with (name, ID)
+<html>
+	<head>
+		<title>MyApp</title>
+	</head>
+	<body>
+		<table border="1" bgcolor="Lime">
+			<thead>
+				<td>ID</td>
+				<td>Name</td>				
+			</thead>
+			<tr>
+				<td>$ID
+				</td>
+				<td>
+					$if name:$name
+					$else:John Dow
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
