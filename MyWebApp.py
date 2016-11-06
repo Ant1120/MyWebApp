@@ -47,7 +47,13 @@ class queryip:
 if __name__ == "__main__":
         app = web.application(urls, globals())
 	app.run()
-	
+
+
+# This function allows azure to hook up the correct URLs to the correct functions
+def wsgiHandler():
+    return web.application(urls, globals(), autoreload=False).wsgifunc()
+
+
 
 def openlog():
         try:
