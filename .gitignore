@@ -1,3 +1,5 @@
 # exclude file & folders
+/*.pyc
+/*/*.pyc
 /venv
 /dumpster
