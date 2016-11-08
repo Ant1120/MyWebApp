@@ -13,13 +13,13 @@ def myip():
 
 @app.route('/version')
 def version():
-	output = "Hi there! This is version 0.1b."
+	output = "Hi there! This is version 0.5b."
 	return output
 
 
 @app.route('/updateip/<host>')
 def updateip(host):
-	MyCode.writelog(logfile, MyCode.timestamp()+','+host+','+socket.gethostbyname(socket.gethostname())+'\n')
+	MyCode.writelog(logfile, MyCode.timestamp()+','+host+','+flask.request.remote_addr+'\n')
 	return "200"
 
 
@@ -29,6 +29,19 @@ def queryip(host):
         matches = re.findall(r'([0-9]{14}),'+host+',([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})', records)
 	if matches:
                 output = sorted(matches,reverse=True)[0][1]
+        else: output = "404"
+	return output
+
+
+@app.route('/iphistory/<host>')
+def iphistory(host):
+        output = ""
+        records = MyCode.readlog(logfile)
+        matches = re.findall(r'([0-9]{14}),'+host+',([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})', records)
+	if matches:
+                history = sorted(matches,reverse=True)
+                for item in history:
+                        output = output + "<p>{0:^16s} | {1:^15s}</p>".format(item[0], item[1])
         else: output = "404"
 	return output
 
