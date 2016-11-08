@@ -1,4 +1,4 @@
-import MyCode, flask, socket, re
+import MyCode, flask, re
 
 
 app = flask.Flask(__name__)
@@ -7,7 +7,7 @@ logfile = "ip.log"
 
 @app.route('/myip')
 def myip():
-        output = socket.gethostbyname(socket.gethostname())
+        output = flask.request.remote_addr
 	return output
 
 
